@@ -36,8 +36,10 @@ function isKeyOfPluginSettings(key: string): key is keyof PluginSettings {
 }
 
 const getUserSettings = async () => {
+  console.log('getting user settings')
   const possiblePluginSrcSettings =
-    (await figma.clientStorage.getAsync("userPluginSettings")) ?? {};
+  (await figma.clientStorage.getAsync("userPluginSettings")) ?? {};
+  console.log('figma', figma)
 
   const updatedPluginSrcSettings = {
     ...defaultPluginSettings,
