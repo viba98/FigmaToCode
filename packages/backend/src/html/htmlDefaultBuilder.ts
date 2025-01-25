@@ -184,7 +184,7 @@ export class HtmlDefaultBuilder {
   }
 
   applyFillsToStyle(
-    paintArray: ReadonlyArray<Paint> | PluginAPI["mixed"],
+    paintArray: ReadonlyArray<Paint>,
     property: "text" | "background",
   ): this {
     if (property === "text") {
@@ -203,11 +203,8 @@ export class HtmlDefaultBuilder {
   }
 
   buildBackgroundValues(
-    paintArray: ReadonlyArray<Paint> | PluginAPI["mixed"],
+    paintArray: ReadonlyArray<Paint>,
   ): string {
-    if (paintArray === figma.mixed) {
-      return "";
-    }
 
     // If one fill and it's a solid, return the solid RGB color
     if (paintArray.length === 1 && paintArray[0].type === "SOLID") {
@@ -339,4 +336,9 @@ export class HtmlDefaultBuilder {
 
     return `${dataAttributes}${classAttribute}${styleAttribute}`;
   }
+}
+
+function isMixed(paintArray: ReadonlyArray<Paint>): boolean {
+  const uniqueTypes = new Set(paintArray.map(paint => paint.type));
+  return uniqueTypes.size > 1; // More than one unique type indicates a mixed state
 }

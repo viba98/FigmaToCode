@@ -18,17 +18,15 @@ export const nodeSize = (node: SceneNode, optimizeLayout: boolean): Size => {
   }
 
   // const parentLayoutMode = node.parent.layoutMode;
-  const parentLayoutMode = optimizeLayout
-    ? node.parent.inferredAutoLayout?.layoutMode
-    : (null ?? node.parent.layoutMode);
+  const layoutMode = node.parent ? node.parent.layoutMode : 'defaultLayoutMode';
 
   const isWidthFill =
-    (parentLayoutMode === "HORIZONTAL" && nodeAuto.layoutGrow === 1) ||
-    (parentLayoutMode === "VERTICAL" && nodeAuto.layoutAlign === "STRETCH");
+    (layoutMode === "HORIZONTAL" && nodeAuto.layoutGrow === 1) ||
+    (layoutMode === "VERTICAL" && nodeAuto.layoutAlign === "STRETCH");
   const isHeightFill =
-    (parentLayoutMode === "HORIZONTAL" && nodeAuto.layoutAlign === "STRETCH") ||
-    (parentLayoutMode === "VERTICAL" && nodeAuto.layoutGrow === 1);
-  const modesSwapped = parentLayoutMode === "HORIZONTAL";
+    (layoutMode === "HORIZONTAL" && nodeAuto.layoutAlign === "STRETCH") ||
+    (layoutMode === "VERTICAL" && nodeAuto.layoutGrow === 1);
+  const modesSwapped = layoutMode === "HORIZONTAL";
   const primaryAxisMode = modesSwapped
     ? "counterAxisSizingMode"
     : "primaryAxisSizingMode";

@@ -24,6 +24,7 @@ export const htmlMain = async (
   isPreviewGlobal = isPreview;
   previousExecutionCache = [];
 
+
   let result = await htmlWidgetGenerator(sceneNode, settings);
 
   // remove the initial \n that is made in Container.
@@ -66,8 +67,8 @@ const htmlWidgetGenerator = async (
   sceneNode: ReadonlyArray<SceneNode>,
   settings: HTMLSettings,
 ): Promise<string> => {
-  // filter non visible nodes. This is necessary at this step because conversion already happened.
-  const promiseOfConvertedCode = getVisibleNodes(sceneNode).map(
+  
+  const promiseOfConvertedCode = sceneNode.map(
     convertNode(settings),
   );
   const code = (await Promise.all(promiseOfConvertedCode)).join("");

@@ -54,10 +54,10 @@ export class HtmlTextBuilder extends HtmlDefaultBuilder {
   }
 
   fontSize(node: TextNode, isUI = false): this {
-    if (node.fontSize !== figma.mixed) {
-      const value = isUI ? Math.min(node.fontSize, 24) : node.fontSize;
-      this.addStyles(formatWithJSX("font-size", this.isJSX, value));
-    }
+    // if (node.fontSize !== figma.mixed) {
+    //   const value = isUI ? Math.min(node.fontSize, 24) : node.fontSize;
+    //   this.addStyles(formatWithJSX("font-size", this.isJSX, value));
+    // }
     return this;
   }
 

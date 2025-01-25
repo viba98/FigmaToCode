@@ -3,7 +3,7 @@ import { retrieveTopFill } from "../../common/retrieveFill";
 
 // retrieve the SOLID color on HTML
 export const htmlColorFromFills = (
-  fills: ReadonlyArray<Paint> | PluginAPI["mixed"] | undefined,
+  fills: ReadonlyArray<Paint> | undefined,
 ): string => {
   // kind can be text, bg, border...
   // [when testing] fills can be undefined
@@ -56,7 +56,7 @@ export const htmlColor = (color: RGB, alpha: number = 1): string => {
 };
 
 export const htmlGradientFromFills = (
-  fills: ReadonlyArray<Paint> | PluginAPI["mixed"],
+  fills: ReadonlyArray<Paint> ,
 ): string => {
   const fill = retrieveTopFill(fills);
   if (fill?.type === "GRADIENT_LINEAR") {

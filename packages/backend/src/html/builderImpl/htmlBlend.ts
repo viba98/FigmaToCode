@@ -136,6 +136,8 @@ export const htmlRotation = (node: LayoutMixin, isJsx: boolean): string[] => {
   }
 
   if (rotation !== 0) {
+
+    console.log(rotation)
     return [
       formatWithJSX(
         "transform",
