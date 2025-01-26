@@ -21,6 +21,7 @@ export const htmlMain = async (
   settings: PluginSettings,
   isPreview: boolean = false,
 ): Promise<string> => {
+
   isPreviewGlobal = isPreview;
   previousExecutionCache = [];
 
@@ -211,7 +212,7 @@ const htmlFrame = async (
   }
 };
 
-const htmlAsset = (node: SceneNode, settings: HTMLSettings): string => {
+const htmlAsset = async (node: SceneNode, settings: HTMLSettings): Promise<string> => {
   if (!("opacity" in node) || !("layoutAlign" in node) || !("fills" in node)) {
     return "";
   }
@@ -223,11 +224,24 @@ const htmlAsset = (node: SceneNode, settings: HTMLSettings): string => {
   let tag = "div";
   let src = "";
   if (retrieveTopFill(node.fills)?.type === "IMAGE") {
-    addWarning("Image fills are replaced with placeholders");
-    tag = "img";
-    src = ` src="https://via.placeholder.com/${node.width.toFixed(
-      0,
-    )}x${node.height.toFixed(0)}"`;
+    console.log('found img 1');
+    // addWarning("Image fills are replaced with placeholders");
+    if (!("children" in node) || node.children.length === 0) {
+      const image = figma.getImageByHash(node.fills[0].imageHash);
+      const bytes = await image.getBytesAsync();
+      const base64Image = convertBytesToBase64(bytes);
+      const imgurUrl = await uploadToImgur(base64Image);
+      tag = "img";
+      src = ` src="${imgurUrl}"`;
+    } else {
+      builder.addStyles(
+        formatWithJSX(
+          "background-image",
+          settings.jsx,
+          `url(https://via.placeholder.com/${node.width.toFixed(0)}x${node.height.toFixed(0)})`,
+        ),
+      );
+    }
   }
 
   if (tag === "div") {
@@ -239,7 +253,7 @@ const htmlAsset = (node: SceneNode, settings: HTMLSettings): string => {
 
 // properties named propSomething always take care of ","
 // sometimes a property might not exist, so it doesn't add ","
-const htmlContainer = (
+const htmlContainer = async (
   node: SceneNode &
     SceneNodeMixin &
     BlendMixin &
@@ -265,12 +279,15 @@ const htmlContainer = (
     let tag = "div";
     let src = "";
     if (retrieveTopFill(node.fills)?.type === "IMAGE") {
-      addWarning("Image fills are replaced with placeholders");
+      console.log('found img 2')
+      // addWarning("Image fills are replaced with placeholders");
       if (!("children" in node) || node.children.length === 0) {
+        const image = figma.getImageByHash(node.fills[0].imageHash)
+        const bytes = await image.getBytesAsync()
+        const base64Image = convertBytesToBase64(bytes);
+        const imgurUrl = await uploadToImgur(base64Image);
         tag = "img";
-        src = ` src="https://via.placeholder.com/${node.width.toFixed(
-          0,
-        )}x${node.height.toFixed(0)}"`;
+        src = ` src="${imgurUrl}"`;
       } else {
         builder.addStyles(
           formatWithJSX(
@@ -335,4 +352,68 @@ export const htmlCodeGenTextStyles = (settings: HTMLSettings) => {
     return "// No text styles in this selection";
   }
   return result;
+};
+
+// Function to convert bytes to Base64
+const convertBytesToBase64 = (bytes: Uint8Array): string => {
+  let binaryString = '';
+  const len = bytes.byteLength;
+  for (let i = 0; i < len; i++) {
+    binaryString += String.fromCharCode(bytes[i]);
+  }
+  
+  // Custom Base64 encoding
+  const base64String = customBase64Encode(binaryString);
+  return 'data:image/png;base64,' + base64String;
+};
+
+// Custom Base64 encoding function
+const customBase64Encode = (input: string): string => {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+  let output = '';
+  let i = 0;
+
+  while (i < input.length) {
+    const byte1 = input.charCodeAt(i++) & 0xff;
+    const byte2 = input.charCodeAt(i++) & 0xff;
+    const byte3 = input.charCodeAt(i++) & 0xff;
+
+    const enc1 = byte1 >> 2;
+    const enc2 = ((byte1 & 3) << 4) | (byte2 >> 4);
+    const enc3 = ((byte2 & 15) << 2) | (byte3 >> 6);
+    const enc4 = byte3 & 63;
+
+    if (isNaN(byte2)) {
+      output += chars.charAt(enc1) + chars.charAt(enc2) + '==';
+    } else if (isNaN(byte3)) {
+      output += chars.charAt(enc1) + chars.charAt(enc2) + chars.charAt(enc3) + '=';
+    } else {
+      output += chars.charAt(enc1) + chars.charAt(enc2) + chars.charAt(enc3) + chars.charAt(enc4);
+    }
+  }
+
+  return output;
+};
+
+// Function to upload image to Imgur
+const uploadToImgur = async (base64Image: string): Promise<string> => {
+  const response = await fetch('https://api.imgur.com/3/image', {
+    method: 'POST',
+    headers: {
+      Authorization: `af6c636a65ad090`, // Replace with your Imgur Client ID
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      image: base64Image.split(',')[1], // Get the Base64 string without the data URL prefix
+    }),
+  });
+
+  const data = await response.json();
+  if (data.success) {
+    console.log('Image uploaded successfully:', data.data.link);
+    return data.data.link;
+  } else {
+    console.error('Image upload failed:', data);
+    throw new Error('Image upload failed');
+  }
 };

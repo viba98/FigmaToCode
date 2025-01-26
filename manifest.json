@@ -8,7 +8,9 @@
   "capabilities": ["inspect", "codegen", "vscode"],
   "permissions": [],
   "networkAccess": {
-    "allowedDomains": ["none"]
+    "allowedDomains": [
+      "https://api.imgur.com"
+    ]
   },
   "codegenLanguages": [
     { "label": "HTML", "value": "html" },
