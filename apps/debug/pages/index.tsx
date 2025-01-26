@@ -105,6 +105,6 @@ export default function Web() {
 
 const PluginFigmaToolbar = (props: { variant: string }) => (
   <div className="bg-gray-800 w-full h-8 flex items-center text-white space-x-4 px-4">
-    <span>Figma to Code {props.variant}</span>
+    <span>Fiddle: Figma to Code {props.variant}</span>
   </div>
 );
