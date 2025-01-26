@@ -128,7 +128,7 @@ export default function App() {
       targetOrigin: "*",
     });
   };
-  console.log("state.code", state.code.slice(0, 25));
+  // console.log("state.code", state.code.slice(0, 25));
 
   return (
     <div className={`${figmaColorBgValue === "#ffffff" ? "" : "dark"}`}>
