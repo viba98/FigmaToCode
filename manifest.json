@@ -4,7 +4,6 @@
   "api": "1.0.0",
   "main": "apps/plugin/dist/code.js",
   "ui": "apps/plugin/dist/index.html",
-  "documentAccess": "dynamic-page",
   "editorType": ["figma", "dev"],
   "capabilities": ["inspect", "codegen", "vscode"],
   "permissions": [],

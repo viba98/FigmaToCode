@@ -46,7 +46,6 @@ export default function App() {
   useEffect(() => {
     window.onmessage = (event: MessageEvent) => {
       const untypedMessage = event.data.pluginMessage as Message;
-      console.log("[ui] message received:", untypedMessage);
 
       switch (untypedMessage.type) {
         case "code":

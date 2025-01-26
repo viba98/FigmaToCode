@@ -279,7 +279,7 @@ const htmlContainer = async (
     let tag = "div";
     let src = "";
     if (retrieveTopFill(node.fills)?.type === "IMAGE") {
-      console.log('found img 2')
+      console.log('found img')
       // addWarning("Image fills are replaced with placeholders");
       if (!("children" in node) || node.children.length === 0) {
         const image = figma.getImageByHash(node.fills[0].imageHash)

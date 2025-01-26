@@ -17,7 +17,7 @@ import { PluginSettings, SettingWillChangeMessage } from "types";
 let userPluginSettings: PluginSettings;
 
 export const defaultPluginSettings: PluginSettings = {
-  framework: "HTML",
+  framework: "Tailwind",
   jsx: false,
   optimizeLayout: true,
   showLayerNames: false,

@@ -19,6 +19,7 @@ export const tailwindMain = async (
   sceneNode: Array<SceneNode>,
   settings: PluginSettings,
 ) => {
+  console.log('tailwind main')
   localTailwindSettings = settings;
   previousExecutionCache = [];
 
@@ -37,18 +38,20 @@ const tailwindWidgetGenerator = async (
   sceneNode: ReadonlyArray<SceneNode>,
   settings: TailwindSettings,
 ): Promise<string> => {
+  console.log('tailwind widget gen')
   // filter non visible nodes. This is necessary at this step because conversion already happened.
   const promiseOfConvertedCode = getVisibleNodes(sceneNode).map(
     convertNode(settings),
   );
   const code = (await Promise.all(promiseOfConvertedCode)).join("");
+  console.log('code', code)
   return code;
 };
 
 const convertNode = (settings: TailwindSettings) => async (node: SceneNode) => {
-  const altNode = await renderAndAttachSVG(node);
-  if (altNode.svg) return tailwindWrapSVG(altNode, settings);
-
+  // const altNode = await renderAndAttachSVG(node);
+  // if (altNode.svg) return tailwindWrapSVG(altNode, settings);
+  console.log('node.type', node.type)
   switch (node.type) {
     case "RECTANGLE":
     case "ELLIPSE":
