@@ -4,6 +4,7 @@ const getFlexDirection = (node: InferredAutoLayoutResult): string =>
   node.layoutMode === "HORIZONTAL" ? "" : "flex-col";
 
 const getJustifyContent = (node: InferredAutoLayoutResult): string => {
+  console.log('justify content', node.primaryAxisAlignItems)
   switch (node.primaryAxisAlignItems) {
     case "MIN":
       return "justify-start";

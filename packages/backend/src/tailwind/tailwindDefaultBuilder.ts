@@ -63,13 +63,16 @@ export class TailwindDefaultBuilder {
   }
 
   addAttributes = (...newStyles: string[]) => {
+    console.log("addAttributes called with:", newStyles);
     this.attributes.push(...dropEmptyStrings(newStyles));
   };
   prependAttributes = (...newStyles: string[]) => {
+    console.log("prependAttributes called with:", newStyles);
     this.attributes.unshift(...dropEmptyStrings(newStyles));
   };
 
   blend(): this {
+    console.log("blend called");
     this.addAttributes(
       tailwindVisibility(this.node),
       tailwindRotation(this.node as LayoutMixin),
@@ -81,15 +84,19 @@ export class TailwindDefaultBuilder {
   }
 
   commonPositionStyles(): this {
+    console.log("commonPositionStyles called");
     this.size();
     this.autoLayoutPadding();
     this.position();
     this.blend();
+    
     return this;
   }
 
   commonShapeStyles(): this {
+    console.log("commonShapeStyles called");
     this.customColor((this.node as MinimalFillsMixin).fills, "bg");
+    console.log('this', this.attributes)
     this.radius();
     this.shadow();
     this.border();
@@ -98,6 +105,7 @@ export class TailwindDefaultBuilder {
   }
 
   radius(): this {
+    console.log("radius called");
     if (this.node.type === "ELLIPSE") {
       this.addAttributes("rounded-full");
     } else {
@@ -107,6 +115,7 @@ export class TailwindDefaultBuilder {
   }
 
   border(): this {
+    console.log("border called");
     if ("strokes" in this.node) {
       this.addAttributes(tailwindBorderWidth(this.node));
       this.customColor(this.node.strokes, "border");
@@ -116,6 +125,7 @@ export class TailwindDefaultBuilder {
   }
 
   position(): this {
+    console.log("position called");
     const { node, optimizeLayout } = this;
 
     if (commonIsAbsolutePosition(node, optimizeLayout)) {
@@ -156,7 +166,7 @@ export class TailwindDefaultBuilder {
     paint: ReadonlyArray<Paint> | PluginAPI["mixed"],
     kind: TailwindColorType,
   ): this {
-    // visible is true or undefinied (tests)
+    console.log("customColor called with kind:", kind);
     if (this.visible) {
       let gradient = "";
       if (kind === "bg") {
@@ -176,12 +186,14 @@ export class TailwindDefaultBuilder {
    * example: shadow
    */
   shadow(): this {
+    console.log("shadow called");
     this.addAttributes(...tailwindShadow(this.node as BlendMixin));
     return this;
   }
 
   // must be called before Position, because of the hasFixedSize attribute.
   size(): this {
+    console.log("size called");
     const { node, optimizeLayout } = this;
     const { width, height } = tailwindSizePartial(node, optimizeLayout);
 
@@ -205,6 +217,7 @@ export class TailwindDefaultBuilder {
   }
 
   autoLayoutPadding(): this {
+    console.log("autoLayoutPadding called");
     if ("paddingLeft" in this.node) {
       this.addAttributes(
         ...tailwindPadding(
@@ -213,10 +226,18 @@ export class TailwindDefaultBuilder {
         ),
       );
     }
+
+    console.log('tailwind padding', this.addAttributes(
+      ...tailwindPadding(
+        (this.optimizeLayout ? this.node.inferredAutoLayout : null) ??
+          this.node,
+      ),
+    ))
     return this;
   }
 
   blur() {
+    console.log("blur called");
     const { node } = this;
     if ("effects" in node && node.effects.length > 0) {
       const blur = node.effects.find((e) => e.type === "LAYER_BLUR");
@@ -246,12 +267,14 @@ export class TailwindDefaultBuilder {
   }
 
   addData(label: string, value?: string): this {
+    console.log("addData called with label:", label, "value:", value);
     const attribute = formatDataAttribute(label, value);
     this.data.push(attribute);
     return this;
   }
 
   build(additionalAttr = ""): string {
+    console.log("build called with additionalAttr:", additionalAttr);
     this.addAttributes(additionalAttr);
 
     if (this.name !== "") {
@@ -273,6 +296,7 @@ export class TailwindDefaultBuilder {
   }
 
   reset(): void {
+    console.log("reset called");
     this.attributes = [];
     this.data = [];
     this.style = "";

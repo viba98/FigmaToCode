@@ -119,16 +119,21 @@ export const commonIsAbsolutePosition = (
     "layoutMode" in node.parent &&
     node.parent.inferredAutoLayout !== null
   ) {
+    console.log('exit 1')
     return false;
   }
 
   if ("layoutAlign" in node) {
+    console.log('layoutAlign', node.layoutAlign)
+    console.log(node.parent)
     if (!node.parent || node.parent === undefined) {
+      console.log('exiting 2', node.parent)
       return false;
     }
 
     const parentLayoutIsNone =
       "layoutMode" in node.parent && node.parent.layoutMode === "NONE";
+      console.log(node.parent.layoutMode)
     const hasNoLayoutMode = !("layoutMode" in node.parent);
 
     if (
@@ -136,6 +141,7 @@ export const commonIsAbsolutePosition = (
       parentLayoutIsNone ||
       hasNoLayoutMode
     ) {
+      console.log('absolute', node.layoutPositioning, parentLayoutIsNone, hasNoLayoutMode)
       return true;
     }
   }

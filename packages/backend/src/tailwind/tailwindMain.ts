@@ -51,6 +51,7 @@ const tailwindWidgetGenerator = async (
 const convertNode = (settings: TailwindSettings) => async (node: SceneNode) => {
   // const altNode = await renderAndAttachSVG(node);
   // if (altNode.svg) return tailwindWrapSVG(altNode, settings);
+
   console.log('node.type', node.type)
   switch (node.type) {
     case "RECTANGLE":
@@ -174,9 +175,13 @@ const tailwindFrame = async (
 
   // Add overflow-hidden class if clipsContent is true
   const clipsContentClass = node.clipsContent ? " overflow-hidden" : "";
+  console.log('layout mode for', node.type, node)
 
   if (node.layoutMode !== "NONE") {
+    console.log('no layout mode', node.layoutMode)
     const rowColumn = tailwindAutoLayoutProps(node, node);
+    console.log('rowColumn', rowColumn)
+        console.log('childrenStr', childrenStr)
     return tailwindContainer(
       node,
       childrenStr,
@@ -184,11 +189,17 @@ const tailwindFrame = async (
       settings,
     );
   } else {
+    console.log('layout mode', node.layoutMode)
+    console.log('node.inferredAutoLayoutl', node.inferredAutoLayout);
+    console.log('localTailwindSettings.optimizeLayout', localTailwindSettings.optimizeLayout);
     if (
       localTailwindSettings.optimizeLayout &&
       node.inferredAutoLayout !== null
     ) {
+      console.log('running else')
       const rowColumn = tailwindAutoLayoutProps(node, node.inferredAutoLayout);
+      console.log('rowColumn', rowColumn)
+        console.log('childrenStr', childrenStr)
       return tailwindContainer(
         node,
         childrenStr,
@@ -196,7 +207,7 @@ const tailwindFrame = async (
         settings,
       );
     }
-
+    console.log('final tailwindContainer', tailwindContainer(node, childrenStr, clipsContentClass, settings))
     // node.layoutMode === "NONE" && node.children.length > 1
     // children needs to be absolute
     return tailwindContainer(node, childrenStr, clipsContentClass, settings);
@@ -226,6 +237,8 @@ export const tailwindContainer = (
   let builder = new TailwindDefaultBuilder(node, settings)
     .commonPositionStyles()
     .commonShapeStyles();
+
+    console.log('builder', builder)
 
   if (builder.attributes || additionalAttr) {
     const build = builder.build(additionalAttr);
