@@ -24,6 +24,8 @@ export const run = async (settings: PluginSettings) => {
     );
   }
 
+  console.log(selection)
+
   const convertedSelection = convertNodesToAltNodes(selection, null);
 
   // ignore when nothing was selected

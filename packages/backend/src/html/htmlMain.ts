@@ -279,24 +279,17 @@ const htmlContainer = async (
     let tag = "div";
     let src = "";
     if (retrieveTopFill(node.fills)?.type === "IMAGE") {
-      console.log('found img')
-      // addWarning("Image fills are replaced with placeholders");
+      addWarning("Image fills are replaced with placeholders");
       if (!("children" in node) || node.children.length === 0) {
-        const image = figma.getImageByHash(node.fills[0].imageHash)
-        const bytes = await image.getBytesAsync()
-        const base64Image = convertBytesToBase64(bytes);
-        const imgurUrl = await uploadToImgur(base64Image);
         tag = "img";
-        src = ` src="${imgurUrl}"`;
+        src = ` src="https://via.placeholder.com/${node.width.toFixed(
+          0,
+        )}x${node.height.toFixed(0)}"`;
       } else {
         builder.addStyles(
-          formatWithJSX(
-            "background-image",
-            settings.jsx,
-            `url(https://via.placeholder.com/${node.width.toFixed(
-              0,
-            )}x${node.height.toFixed(0)})`,
-          ),
+          `bg-[url(https://via.placeholder.com/${node.width.toFixed(
+            0,
+          )}x${node.height.toFixed(0)})]`,
         );
       }
     }

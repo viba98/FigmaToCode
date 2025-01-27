@@ -21,6 +21,7 @@ const canBeFlattened = isTypeOrGroupOfTypes([
 export const convertNodeToAltNode =
   (parent: ParentNode | null) =>
   (node: SceneNode): SceneNode => {
+    console.log('converting  node to alt nodes')
     const type = node.type;
     switch (type) {
       // Standard nodes
@@ -57,6 +58,7 @@ export const convertNodeToAltNode =
       // Text Nodes
       case "TEXT":
         globalTextStyleSegments[node.id] = extractStyledTextSegments(node);
+        console.log('golab text style seg', globalTextStyleSegments)
         return cloneNode(node, parent);
 
       // Unsupported Nodes
@@ -125,7 +127,23 @@ const cloneAsRectangleNode = <T extends BaseNode>(
   return clonedNode as unknown as RectangleNode;
 };
 
-const extractStyledTextSegments = (node: TextNode) =>
+const extractStyledTextSegments = (node: TextNode) =>{
+  console.log('styled elements',node.getStyledTextSegments([
+    "fontName",
+    "fills",
+    "fontSize",
+    "fontWeight",
+    "hyperlink",
+    "indentation",
+    "letterSpacing",
+    "lineHeight",
+    "listOptions",
+    "textCase",
+    "textDecoration",
+    "textStyleId",
+    "fillStyleId",
+    "openTypeFeatures",
+  ]))
   node.getStyledTextSegments([
     "fontName",
     "fills",
@@ -142,3 +160,5 @@ const extractStyledTextSegments = (node: TextNode) =>
     "fillStyleId",
     "openTypeFeatures",
   ]);
+}
+  

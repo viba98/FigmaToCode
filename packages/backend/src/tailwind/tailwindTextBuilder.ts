@@ -19,6 +19,7 @@ export class TailwindTextBuilder extends TailwindDefaultBuilder {
     openTypeFeatures: { [key: string]: boolean };
   }[] {
     const segments = globalTextStyleSegments[id];
+    console.log('segments', segments)
     if (!segments) {
       return [];
     }

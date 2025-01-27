@@ -126,7 +126,6 @@ export const tailwindText = (
     .textAlign();
 
   const styledHtml = layoutBuilder.getTextSegments(node.id);
-  previousExecutionCache.push(...styledHtml);
 
   let content = "";
   if (styledHtml.length === 1) {
@@ -178,10 +177,7 @@ const tailwindFrame = async (
   console.log('layout mode for', node.type, node)
 
   if (node.layoutMode !== "NONE") {
-    console.log('no layout mode', node.layoutMode)
     const rowColumn = tailwindAutoLayoutProps(node, node);
-    console.log('rowColumn', rowColumn)
-        console.log('childrenStr', childrenStr)
     return tailwindContainer(
       node,
       childrenStr,
@@ -189,9 +185,6 @@ const tailwindFrame = async (
       settings,
     );
   } else {
-    console.log('layout mode', node.layoutMode)
-    console.log('node.inferredAutoLayoutl', node.inferredAutoLayout);
-    console.log('localTailwindSettings.optimizeLayout', localTailwindSettings.optimizeLayout);
     if (
       localTailwindSettings.optimizeLayout &&
       node.inferredAutoLayout !== null
@@ -278,6 +271,7 @@ export const tailwindLine = (
   node: LineNode,
   settings: TailwindSettings,
 ): string => {
+  console.log('line found')
   const builder = new TailwindDefaultBuilder(node, settings)
     .commonPositionStyles()
     .commonShapeStyles();
@@ -289,6 +283,7 @@ export const tailwindSection = async (
   node: SectionNode,
   settings: TailwindSettings,
 ): Promise<string> => {
+  console.log('section')
   const childrenStr = await tailwindWidgetGenerator(node.children, settings);
   const builder = new TailwindDefaultBuilder(node, settings)
     .size()
