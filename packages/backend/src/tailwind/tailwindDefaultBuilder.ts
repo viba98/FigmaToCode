@@ -96,8 +96,8 @@ export class TailwindDefaultBuilder {
   commonShapeStyles(): this {
     console.log("commonShapeStyles called");
     this.customColor((this.node as MinimalFillsMixin).fills, "bg");
-    console.log('this', this.attributes)
     this.radius();
+    console.log('this', this)
     this.shadow();
     this.border();
     this.blur();

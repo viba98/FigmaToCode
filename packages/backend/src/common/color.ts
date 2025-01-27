@@ -20,12 +20,14 @@ export const rgbTo8hex = (color: RGB, alpha: number): string => {
 };
 
 export const gradientAngle = (fill: GradientPaint): number => {
+
+  console.log(fill.gradientTransform[0])
   // Thanks Gleb and Liam for helping!
   const decomposed = decomposeRelativeTransform(
     fill.gradientTransform[0],
     fill.gradientTransform[1],
   );
-
+console.log('decomposed', (decomposed.rotation * 180)/Math.PI)
   return (decomposed.rotation * 180) / Math.PI;
 };
 // from https://math.stackexchange.com/a/2888105
