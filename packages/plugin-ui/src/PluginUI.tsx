@@ -64,12 +64,22 @@ export const PluginUI = (props: PluginUIProps) => {
         }}
       ></div>
       <div className="flex flex-col h-full overflow-y-auto">
-        <div className="flex flex-col items-center px-4 py-2 gap-2 dark:bg-transparent">
+        <div className="flex flex-col items-center px-4 py-2 gap-4 dark:bg-transparent">
           {isEmpty === false && props.htmlPreview && (
             <Preview htmlPreview={props.htmlPreview} />
           )}
+          
+          <CodePanel
+            code={props.code}
+            selectedFramework={props.selectedFramework}
+            preferenceOptions={preferenceOptions}
+            selectPreferenceOptions={selectPreferenceOptions}
+            settings={props.settings}
+            onPreferenceChanged={props.onPreferenceChanged}
+          />
+
           {warnings.length > 0 && (
-            <div className="flex flex-col bg-yellow-400 text-black  dark:bg-yellow-500 dark:text-black p-3 w-full">
+            <div className="flex flex-col bg-yellow-400 text-black  dark:bg-yellow-500 dark:text-black p-3 w-full rounded-md pt-2">
               <div className="flex flex-row gap-1">
                 <div style={{ transform: "translate(2px, 0px) scale(80%)" }}>
                   <WarningIcon />
@@ -85,16 +95,8 @@ export const PluginUI = (props: PluginUIProps) => {
               </ul>
             </div>
           )}
-          <CodePanel
-            code={props.code}
-            selectedFramework={props.selectedFramework}
-            preferenceOptions={preferenceOptions}
-            selectPreferenceOptions={selectPreferenceOptions}
-            settings={props.settings}
-            onPreferenceChanged={props.onPreferenceChanged}
-          />
 
-          {props.colors.length > 0 && (
+          {/* {props.colors.length > 0 && (
             <ColorsPanel
               colors={props.colors}
               onColorClick={(value) => {
@@ -110,7 +112,7 @@ export const PluginUI = (props: PluginUIProps) => {
                 copy(value);
               }}
             />
-          )}
+          )} */}
         </div>
       </div>
     </div>
