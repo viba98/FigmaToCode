@@ -3,14 +3,6 @@ import { LocalCodegenPreferenceOptions, SelectPreferenceOptions } from "types";
 export const preferenceOptions: LocalCodegenPreferenceOptions[] = [
   {
     itemType: "individual_select",
-    propertyName: "jsx",
-    label: "React (JSX)",
-    description: 'Render "class" attributes as "className"',
-    isDefault: false,
-    includedLanguages: ["HTML", "Tailwind"],
-  },
-  {
-    itemType: "individual_select",
     propertyName: "optimizeLayout",
     label: "Optimize layout",
     description: "Attempt to auto-layout suitable element groups",

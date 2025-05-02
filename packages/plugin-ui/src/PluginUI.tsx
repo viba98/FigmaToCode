@@ -30,7 +30,7 @@ type PluginUIProps = {
   gradients: LinearGradientConversion[];
 };
 
-const frameworks: Framework[] = ["HTML", "Tailwind", "Flutter", "SwiftUI"];
+const frameworks: Framework[] = ["Tailwind"];
 
 export const PluginUI = (props: PluginUIProps) => {
   const isEmpty = props.code === "";
@@ -39,7 +39,7 @@ export const PluginUI = (props: PluginUIProps) => {
 
   return (
     <div className="flex flex-col h-full dark:text-white">
-      <div className="p-2 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-4 gap-1">
+      {/* <div className="p-2 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-4 gap-1">
         {frameworks.map((tab) => (
           <button
             key={`tab ${tab}`}
@@ -55,7 +55,7 @@ export const PluginUI = (props: PluginUIProps) => {
             {tab}
           </button>
         ))}
-      </div>
+      </div> */}
       <div
         style={{
           height: 1,
