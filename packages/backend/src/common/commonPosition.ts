@@ -133,7 +133,7 @@ export const commonIsAbsolutePosition = (
 
     const parentLayoutIsNone =
       "layoutMode" in node.parent && node.parent.layoutMode === "NONE";
-      console.log(node.parent.layoutMode)
+      console.log('parent layout in', node.name, 'is', node.parent?.layoutMode, parentLayoutIsNone)
     const hasNoLayoutMode = !("layoutMode" in node.parent);
 
     if (

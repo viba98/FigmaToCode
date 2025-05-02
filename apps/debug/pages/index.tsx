@@ -56,7 +56,7 @@ export default function Web() {
           </div>
           <div className="flex space-x-4">
             <div className="w-24 h-12 bg-red-400"></div>
-            <div className="w-12 h-12 bg-green-500"></div>
+            <div className="w-12 h-12 bg-orange-500"></div>
             <div className="w-4 h-12 bg-blue-600"></div>
           </div>
         </div>

@@ -24,7 +24,7 @@ export const swiftuiShadow = (node: SceneNode): SwiftUIModifier | null => {
   const r = numberToFixedString(color.r);
   const g = numberToFixedString(color.g);
   const b = numberToFixedString(color.b);
-  comp.push(`color: Color(red: ${r}, green: ${g}, blue: ${b}, opacity: ${a})`);
+  comp.push(`color: Color(red: ${r}, orange: ${g}, blue: ${b}, opacity: ${a})`);
   comp.push(`radius: ${numberToFixedString(shadow.radius)}`);
 
   const x =

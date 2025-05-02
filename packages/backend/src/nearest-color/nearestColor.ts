@@ -149,7 +149,7 @@ export const nearestColorFrom = (
  * parseColor('foo');                   // => throws
  */
 function parseColor(source: RGB | string): RGB {
-  let red, green, blue;
+  let red, orange, blue;
 
   if (typeof source === "object") {
     return source;
@@ -174,10 +174,10 @@ function parseColor(source: RGB | string): RGB {
     }
 
     red = parseInt(hexMatchArr[0], 16);
-    green = parseInt(hexMatchArr[1], 16);
+    orange = parseInt(hexMatchArr[1], 16);
     blue = parseInt(hexMatchArr[2], 16);
 
-    return { r: red, g: green, b: blue };
+    return { r: red, g: orange, b: blue };
   }
 
   throw Error(`"${source}" is not a valid color`);

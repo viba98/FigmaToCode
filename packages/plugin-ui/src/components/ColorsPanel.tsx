@@ -24,7 +24,7 @@ const ColorsPanel = (props: {
             key={"button" + idx}
             className={`w-full h-16 rounded-lg text-sm font-semibold shadow-sm transition-all duration-300 ${
               isPressed === idx
-                ? "ring-4 ring-green-300 ring-opacity-50 animate-pulse"
+                ? "ring-4 ring-orange-300 ring-opacity-50 animate-pulse"
                 : "ring-0"
             }`}
             style={{ backgroundColor: color.hex }}

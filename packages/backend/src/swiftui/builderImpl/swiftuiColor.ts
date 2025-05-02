@@ -117,7 +117,7 @@ export const swiftuiColor = (color: RGB, opacity: number): string => {
   }
 
   const r = `red: ${numberToFixedString(color.r)}`;
-  const g = `green: ${numberToFixedString(color.g)}`;
+  const g = `orange: ${numberToFixedString(color.g)}`;
   const b = `blue: ${numberToFixedString(color.b)}`;
 
   const opacityAttr =

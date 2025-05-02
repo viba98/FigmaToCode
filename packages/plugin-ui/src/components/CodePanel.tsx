@@ -55,9 +55,9 @@ const CodePanel = (props: CodePanelProps) => {
         </p>
         {isEmpty === false && (
           <button
-            className={`px-4 py-1 text-sm font-semibold border border-green-500 rounded-md shadow-sm hover:bg-green-500 dark:hover:bg-green-600 hover:text-white hover:border-transparent transition-all duration-300 ${
+            className={`px-4 py-1 text-sm font-semibold border border-orange-500 rounded-md shadow-sm hover:bg-orange-500 dark:hover:bg-orange-600 hover:text-white hover:border-transparent transition-all duration-300 ${
               isPressed
-                ? "bg-green-500 dark:text-white hover:bg-green-500 ring-4 ring-green-300 ring-opacity-50 animate-pulse"
+                ? "bg-orange-500 dark:text-white hover:bg-orange-500 ring-4 ring-orange-300 ring-opacity-50 animate-pulse"
                 : "bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-200 border-neutral-300 dark:border-neutral-600"
             }`}
             onClick={handleButtonClick}
@@ -87,8 +87,8 @@ const CodePanel = (props: CodePanelProps) => {
                   onSelect={(value) => {
                     onPreferenceChanged(preference.propertyName, value);
                   }}
-                  buttonClass="bg-green-100 dark:bg-black dark:ring-green-800 ring-green-500"
-                  checkClass="bg-green-400 dark:bg-black dark:bg-green-500 dark:border-green-500 ring-green-300 border-green-400"
+                  buttonClass="bg-orange-100 dark:bg-black dark:ring-orange-800 ring-orange-500"
+                  checkClass="bg-orange-400 dark:bg-black dark:bg-orange-500 dark:border-orange-500 ring-orange-300 border-orange-400"
                 />
               ))}
           </div>
@@ -127,7 +127,7 @@ const CodePanel = (props: CodePanelProps) => {
       )}
 
       <div
-        className={`rounded-lg ring-green-600 transition-all duratio overflow-clip ${
+        className={`rounded-lg ring-orange-600 transition-all duratio overflow-clip ${
           syntaxHovered ? "ring-2" : "ring-0"
         }`}
       >

@@ -45,8 +45,8 @@ export const PluginUI = (props: PluginUIProps) => {
             key={`tab ${tab}`}
             className={`w-full p-1 text-sm ${
               props.selectedFramework === tab
-                ? "bg-green-500 dark:bg-green-600 text-white rounded-md font-semibold shadow-sm"
-                : "bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-200 border focus:border-0 border-neutral-300 dark:border-neutral-600 rounded-md hover:bg-green-600 dark:hover:bg-green-800 dark:hover:border-green-800 hover:text-white dark:hover:text-white font-semibold shadow-sm"
+                ? "bg-orange-500 dark:bg-orange-600 text-white rounded-md font-semibold shadow-sm"
+                : "bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-200 border focus:border-0 border-neutral-300 dark:border-neutral-600 rounded-md hover:bg-orange-600 dark:hover:bg-orange-800 dark:hover:border-orange-800 hover:text-white dark:hover:text-white font-semibold shadow-sm"
             }`}
             onClick={() => {
               props.setSelectedFramework(tab as Framework);
