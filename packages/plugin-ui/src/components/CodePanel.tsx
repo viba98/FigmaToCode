@@ -9,7 +9,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { coldarkDark as theme } from "react-syntax-highlighter/dist/esm/styles/prism";
 import copy from "copy-to-clipboard";
 import SelectableToggle from "./SelectableToggle";
-import { Copy } from "@phosphor-icons/react";
+import { Copy, Check } from "@phosphor-icons/react";
 
 interface CodePanelProps {
   code: string;
@@ -22,6 +22,7 @@ interface CodePanelProps {
 
 const CodePanel = (props: CodePanelProps) => {
   const [isPressed, setIsPressed] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
   const [syntaxHovered, setSyntaxHovered] = useState(false);
   const {
     code,
@@ -36,8 +37,13 @@ const CodePanel = (props: CodePanelProps) => {
   // Add your clipboard function here or any other actions
   const handleButtonClick = () => {
     setIsPressed(true);
-    setTimeout(() => setIsPressed(false), 250);
+    setIsCopied(true);
     copy(code);
+    
+    // Reset pressed state
+    setTimeout(() => setIsPressed(false), 250);
+    // Reset copied state after 3 seconds
+    setTimeout(() => setIsCopied(false), 3000);
   };
 
   const handleButtonHover = () => setSyntaxHovered(true);
@@ -50,107 +56,51 @@ const CodePanel = (props: CodePanelProps) => {
 
   return (
     <div className="w-full flex flex-col gap-2 mt-2">
-      <div className="flex items-center justify-between w-full">
-        <p className="text-lg font-medium text-center dark:text-white rounded-lg">
-          Code
-        </p>
-        {isEmpty === false && (
-          <button
-            className={`px-4 py-1 text-sm font-semibold border border-orange-500 rounded-md shadow-sm hover:bg-orange-500 dark:hover:bg-orange-600 hover:text-white hover:border-transparent transition-all duration-300 inline-flex items-center gap-2 ${
-              isPressed
-                ? "bg-orange-500 dark:text-white hover:bg-orange-500 ring-4 ring-orange-300 ring-opacity-50 animate-pulse"
-                : "bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-200 border-neutral-300 dark:border-neutral-600"
-            }`}
-            onClick={handleButtonClick}
-            onMouseEnter={handleButtonHover}
-            onMouseLeave={handleButtonLeave}
-          >
-            <Copy weight="bold" className="w-4 h-4" />
-          </button>
-        )}
-      </div>
-
-      {/* {isEmpty === false && (
-        <div className="flex gap-2 justify-center flex-col p-2 dark:bg-black dark:bg-opacity-25 bg-neutral-100 ring-1 ring-neutral-200 dark:ring-neutral-700 rounded-lg text-sm">
-          <div className="flex gap-2 items-center flex-wrap">
-            {preferenceOptions
-              .filter((preference) =>
-                preference.includedLanguages?.includes(selectedFramework),
-              )
-              .map((preference) => (
-                <SelectableToggle
-                  key={preference.propertyName}
-                  title={preference.label}
-                  description={preference.description}
-                  isSelected={
-                    settings?.[preference.propertyName] ?? preference.isDefault
-                  }
-                  onSelect={(value) => {
-                    onPreferenceChanged(preference.propertyName, value);
-                  }}
-                  buttonClass="bg-orange-100 dark:bg-black dark:ring-orange-800 ring-orange-500"
-                  checkClass="bg-orange-400 dark:bg-black dark:bg-orange-500 dark:border-orange-500 ring-orange-300 border-orange-400"
-                />
-              ))}
-          </div>
-          {selectableSettingsFiltered.length > 0 && (
-            <>
-              <div className="w-full h-px bg-neutral-200 dark:bg-neutral-700" />
-
-              <div className="flex gap-2 items-center flex-wrap">
-                {selectableSettingsFiltered.map((preference) => (
-                  <>
-                    {preference.options.map((option) => (
-                      <SelectableToggle
-                        key={option.label}
-                        title={option.label}
-                        isSelected={
-                          option.value ===
-                          (settings?.[preference.propertyName] ??
-                            option.isDefault)
-                        }
-                        onSelect={() => {
-                          onPreferenceChanged(
-                            preference.propertyName,
-                            option.value,
-                          );
-                        }}
-                        buttonClass="bg-blue-100 dark:bg-black dark:ring-blue-800"
-                        checkClass="bg-blue-400 dark:bg-black dark:bg-blue-500 dark:border-blue-500 ring-blue-300 border-blue-400"
-                      />
-                    ))}
-                  </>
-                ))}
-              </div>
-            </>
-          )}
-        </div>
-      )} */}
-
-      <div
-        className={`rounded-lg ring-orange-600 transition-all duratio overflow-clip ${
-          syntaxHovered ? "ring-2" : "ring-0"
-        }`}
+      <div 
+        className="relative"
+        onMouseEnter={handleButtonHover}
+        onMouseLeave={handleButtonLeave}
       >
         {isEmpty ? (
           <h3>No layer is selected. Please select a layer.</h3>
         ) : (
-          <SyntaxHighlighter
-            language="dart"
-            style={theme}
-            customStyle={{
-              fontSize: 12,
-              borderRadius: 8,
-              marginTop: 0,
-              marginBottom: 0,
-              backgroundColor: syntaxHovered ? "#1E2B1A" : "#1B1B1B",
-              transitionProperty: "all",
-              transitionTimingFunction: "ease",
-              transitionDuration: "0.2s",
-            }}
-          >
-            {code}
-          </SyntaxHighlighter>
+          <>
+            {/* Copy button overlay */}
+            <div className={`absolute top-2 right-2 z-10 transition-opacity duration-200 ${
+              syntaxHovered ? 'opacity-100' : 'opacity-0'
+            }`}>
+              <button
+                className={`px-3 py-1.5 text-sm font-semibold bg-neutral-800/80 backdrop-blur-sm text-white rounded-md shadow-sm hover:bg-neutral-700/80 transition-all duration-300 inline-flex items-center gap-2 ${
+                  isPressed ? "ring-2 ring-orange-500 ring-opacity-50" : ""
+                }`}
+                onClick={handleButtonClick}
+              >
+                {isCopied ? <Check size={16} /> : <Copy size={16} />}
+              </button>
+            </div>
+
+            {/* Syntax highlighter */}
+            <div className={`rounded-lg ring-orange-600 transition-all duration-300 ${
+              syntaxHovered ? "ring-2" : "ring-0"
+            }`}>
+              <SyntaxHighlighter
+                language="dart"
+                style={theme}
+                customStyle={{
+                  fontSize: 12,
+                  borderRadius: 8,
+                  marginTop: 0,
+                  marginBottom: 0,
+                  backgroundColor: syntaxHovered ? "#1E2B1A" : "#1B1B1B",
+                  transitionProperty: "all",
+                  transitionTimingFunction: "ease",
+                  transitionDuration: "0.2s",
+                }}
+              >
+                {code}
+              </SyntaxHighlighter>
+            </div>
+          </>
         )}
       </div>
     </div>
