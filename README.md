@@ -1,8 +1,4 @@
-<!-- <p align="center"><img src="assets/icon_256.png" alt="Figma to Code" height="128px"></p> -->
-
-[![Figma to Code](assets/git_preview.png)](https://www.figma.com/community/plugin/842128343887142055)
-
-# Figma to Code
+# Figma to Functional Prototype
 
 <p align="center">
 <a href="https://github.com/bernaferrari/FigmaToCode/actions/"><img src="https://github.com/bernaferrari/FigmaToCode/workflows/CI/badge.svg"/></a>

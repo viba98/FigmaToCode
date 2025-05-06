@@ -9,6 +9,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { coldarkDark as theme } from "react-syntax-highlighter/dist/esm/styles/prism";
 import copy from "copy-to-clipboard";
 import SelectableToggle from "./SelectableToggle";
+import { Copy } from "@phosphor-icons/react";
 
 interface CodePanelProps {
   code: string;
@@ -55,7 +56,7 @@ const CodePanel = (props: CodePanelProps) => {
         </p>
         {isEmpty === false && (
           <button
-            className={`px-4 py-1 text-sm font-semibold border border-orange-500 rounded-md shadow-sm hover:bg-orange-500 dark:hover:bg-orange-600 hover:text-white hover:border-transparent transition-all duration-300 ${
+            className={`px-4 py-1 text-sm font-semibold border border-orange-500 rounded-md shadow-sm hover:bg-orange-500 dark:hover:bg-orange-600 hover:text-white hover:border-transparent transition-all duration-300 inline-flex items-center gap-2 ${
               isPressed
                 ? "bg-orange-500 dark:text-white hover:bg-orange-500 ring-4 ring-orange-300 ring-opacity-50 animate-pulse"
                 : "bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-200 border-neutral-300 dark:border-neutral-600"
@@ -64,7 +65,7 @@ const CodePanel = (props: CodePanelProps) => {
             onMouseEnter={handleButtonHover}
             onMouseLeave={handleButtonLeave}
           >
-            Copy
+            <Copy weight="bold" className="w-4 h-4" />
           </button>
         )}
       </div>
