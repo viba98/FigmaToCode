@@ -1,5 +1,5 @@
 {
-  "name": "Fiddle: Figma to Code",
+  "name": "Fiddle: Prototype in Code",
   "id": "1465161213135613997",
   "api": "1.0.0",
   "main": "apps/plugin/dist/code.js",

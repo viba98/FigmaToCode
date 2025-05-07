@@ -15,7 +15,7 @@ export default function Web() {
 
       <div className="flex w-full space-x-2">
         <div className="bg-gray-100 p-2 rounded-md">
-          <div className="bg-white w-96 shadow-md rounded-md">
+          <div className="bg-white w-240 shadow-md rounded-md">
             <PluginFigmaToolbar variant="(Light)" />
             <PluginUI
               code={"code goes hereeeee"}
@@ -105,6 +105,6 @@ export default function Web() {
 
 const PluginFigmaToolbar = (props: { variant: string }) => (
   <div className="bg-gray-800 w-full h-8 flex items-center text-white space-x-4 px-4">
-    <span>Fiddle: Figma to Code {props.variant}</span>
+    <span>Fiddle: Prototype in Code {props.variant}</span>
   </div>
 );

@@ -19,11 +19,12 @@ const Preview: React.FC<{
         <div
           className="relative flex flex-col items-center"
           style={{
-            width: targetWidth,
+            width: '100%',
             resize: "both",
             overflow: "auto",
             minWidth: "100px",
-            minHeight: "100px",
+            // minHeight: "200px",
+            height: 'auto'
           }}
         >
           <div

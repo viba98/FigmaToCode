@@ -64,37 +64,46 @@ export const PluginUI = (props: PluginUIProps) => {
         }}
       ></div>
       <div className="flex flex-col h-full overflow-y-auto">
-        <div className="flex flex-col items-center px-4 py-2 gap-4 dark:bg-transparent">
+        <div className="flex flex-row items-start px-4 py-2 gap-4 dark:bg-transparent">
           {isEmpty === false && props.htmlPreview && (
-            <Preview htmlPreview={props.htmlPreview} />
-          )}
-          
-          <CodePanel
-            code={props.code}
-            selectedFramework={props.selectedFramework}
-            preferenceOptions={preferenceOptions}
-            selectPreferenceOptions={selectPreferenceOptions}
-            settings={props.settings}
-            onPreferenceChanged={props.onPreferenceChanged}
-          />
-
-          {warnings.length > 0 && (
-            <div className="flex flex-col bg-yellow-400 text-black  dark:bg-yellow-500 dark:text-black p-3 w-full rounded-md pt-2">
-              <div className="flex flex-row gap-1">
-                <div style={{ transform: "translate(2px, 0px) scale(80%)" }}>
-                  <WarningIcon />
+            <div className="flex flex-col w-1/2 justify-between h-full">
+              <Preview htmlPreview={props.htmlPreview} />
+              {warnings.length > 0 && (
+                <div className="flex flex-col bg-yellow-400 text-black  dark:bg-yellow-500 dark:text-black p-3 w-full rounded-md pt-2">
+                  <div className="flex flex-row gap-1">
+                    <div style={{ transform: "translate(2px, 0px) scale(80%)" }}>
+                      <WarningIcon />
+                    </div>
+                    <h3 className="text-base font-bold">Warnings:</h3>
+                  </div>
+                  <ul className="list-disc pl-6">
+                    {warnings.map((message: string) => (
+                      <li className="list-item">
+                        <em className="italic text-sm">{message}</em>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <h3 className="text-base font-bold">Warnings:</h3>
-              </div>
-              <ul className="list-disc pl-6">
-                {warnings.map((message: string) => (
-                  <li className="list-item">
-                    <em className="italic text-sm">{message}</em>
-                  </li>
-                ))}
-              </ul>
+              )}
+              
             </div>
           )}
+          
+          <div className="flex flex-col w-1/2">
+            <CodePanel
+              code={props.code}
+              selectedFramework={props.selectedFramework}
+              preferenceOptions={preferenceOptions}
+              selectPreferenceOptions={selectPreferenceOptions}
+              settings={props.settings}
+              onPreferenceChanged={props.onPreferenceChanged}
+            />
+            <button 
+            onClick={() => window.open('http://localhost:5173/chat/378', '_blank')} 
+            className='bg-white/10 inline-block p-2 text-white'>
+              Open in Code Editor
+              </button>
+          </div>
 
           {/* {props.colors.length > 0 && (
             <ColorsPanel
