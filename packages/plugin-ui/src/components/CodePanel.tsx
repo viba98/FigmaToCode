@@ -55,7 +55,7 @@ const CodePanel = (props: CodePanelProps) => {
   );
 
   return (
-    <div className="w-full flex flex-col gap-2 mt-2">
+    <div className="w-full flex flex-col gap-2">
       <div 
         className="relative"
         onMouseEnter={handleButtonHover}
@@ -70,7 +70,7 @@ const CodePanel = (props: CodePanelProps) => {
               syntaxHovered ? 'opacity-100' : 'opacity-0'
             }`}>
               <button
-                className={`px-3 py-1.5 text-sm font-semibold bg-neutral-800/80 backdrop-blur-sm text-white rounded-md shadow-sm hover:bg-neutral-700/80 transition-all duration-300 inline-flex items-center gap-2 ${
+                className={`px-3 py-1.5 text-sm font-semibold bg-neutral-800/80 backdrop-blur-sm text-white shadow-sm hover:bg-neutral-700/80 transition-all duration-300 inline-flex items-center gap-2 ${
                   isPressed ? "ring-2 ring-orange-500 ring-opacity-50" : ""
                 }`}
                 onClick={handleButtonClick}
@@ -80,7 +80,7 @@ const CodePanel = (props: CodePanelProps) => {
             </div>
 
             {/* Syntax highlighter */}
-            <div className={`rounded-lg ring-orange-600 transition-all duration-300 ${
+            <div className={`ring-orange-600 transition-all duration-300 ${
               syntaxHovered ? "ring-2" : "ring-0"
             }`}>
               <SyntaxHighlighter
@@ -88,7 +88,6 @@ const CodePanel = (props: CodePanelProps) => {
                 style={theme}
                 customStyle={{
                   fontSize: 12,
-                  borderRadius: 8,
                   marginTop: 0,
                   marginBottom: 0,
                   backgroundColor: syntaxHovered ? "#1E2B1A" : "#1B1B1B",

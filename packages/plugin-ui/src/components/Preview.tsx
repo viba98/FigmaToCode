@@ -12,10 +12,7 @@ const Preview: React.FC<{
 
   return (
     <div className="flex flex-col w-full">
-      <div className="py-1.5 flex gap-2 w-full text-lg font-medium text-center dark:text-white rounded-lg justify-between">
-        <span>Responsive Preview</span>
-      </div>
-      <div className="flex gap-2 justify-center items-center">
+      <div className="flex gap-2 justify-center items-center h-screen">
         <div
           className="relative flex flex-col items-center"
           style={{
@@ -28,7 +25,7 @@ const Preview: React.FC<{
           }}
         >
           <div
-            className="flex flex-col justify-center items-center border border-neutral-200 dark:border-neutral-700 rounded-md shadow-sm w-full h-full"
+            className="flex flex-col justify-center items-center  rounded-md shadow-sm w-full h-full"
             style={{
               clipPath: "inset(0px round 6px)",
             }}
@@ -36,7 +33,7 @@ const Preview: React.FC<{
             <div
               style={{
                 zoom: scaleFactor,
-                width: "100%",
+                width: "fit",
                 height: "100%",
               }}
               dangerouslySetInnerHTML={{

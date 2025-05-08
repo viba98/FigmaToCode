@@ -76,7 +76,7 @@ const safeRun = (settings: PluginSettings) => {
 };
 
 const standardMode = async () => {
-  figma.showUI(__html__, { width: 700, height: 450, themeColors: true });
+  figma.showUI(__html__, { width: 650, height: 400, themeColors: true });
   await initSettings();
 
   // Listen for selection changes
