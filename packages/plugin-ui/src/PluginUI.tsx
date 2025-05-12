@@ -77,7 +77,7 @@ export const PluginUI = (props: PluginUIProps) => {
               onPreferenceChanged={props.onPreferenceChanged}
             />
             <button 
-            onClick={() => window.open('http://localhost:5173/chat/378', '_blank')} 
+            onClick={() => window.open('https://not.fiddle.is', '_blank')} 
             className='bg-white/10 inline-block p-2 text-white tex-sm'>
               Open in Code Editor
               </button>
